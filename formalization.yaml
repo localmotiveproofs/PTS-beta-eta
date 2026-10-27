@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Weak and strong βη-normalization in pure type systems with βη-conversion"
+  description: >-
+    A Lean formalization of the Barendregt-Geuvers-Klop conjecture, "weak
+    normalization implies strong normalization", for the pure type systems
+    PTS_βη of Geuvers (Logics and Type Systems, 1993), whose conversion rule
+    uses βη-conversion. For every PTS specification, with no functionality
+    assumption, it proves two theorems about the legal terms of PTS_βη.
+    If every legal term is weakly βη-normalizing, then every legal term is
+    strongly βη-normalizing. If every legal term is weakly β-normalizing,
+    then every legal term is strongly βη-normalizing.
+    The proof adapts OpenAI's 2026 proof of the β case for PTS_β, whose Lean
+    files are included. An η-step can delete a λ-annotation, so the proof
+    works from a weaker hypothesis, that every legal term has a β-reduct with
+    no β-redex outside its λ-domains. Conversion is handled through domain
+    erasure, candidates are indexed by βη-normal forms of erased types, and
+    observation values are made η-canonical.
+  authors:
+    - "Ankit Pradhan"
+    - "Cole Vick"
+    - "Ruijie Fang"
+    - "Carl Kwan"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Ankit Pradhan"
+
+classification:
+  arxiv: ["cs.LO", "math.LO"]
+  msc2020: ["03B40", "03B38", "68N18", "03B35"]
+
+sources:
+  - title: "Weak and strong normalization in pure type systems"
+    authors:
+      - "OpenAI"
+    type: paper
+    id: "https://github.com/openai/math/tree/main/preprints/Weak-and-strong-normalization-in-pure-type-systems-September-25-2026"
+    location: "Preprint dated September 25, 2026, with a Lean formalization in https://github.com/openai/math (lean/OAI/Computability/TypeSystem/)"
+    relationship: adapts
+    note: >-
+      Proves weak β-normalization implies strong β-normalization for every
+      PTS_β, i.e. with β-conversion in the typing rule. Its result does not
+      cover PTS_βη, which may have more legal terms, and the preprint makes
+      no assertion about η. The present proof follows its architecture (the
+      candidate construction with three component interpretations and the
+      typed paradox that excludes one graph configuration) and changes the
+      parts that depend on β-conversion typing. Its Lean files are copied
+      into PTSBetaEta/Beta and reused, and several of them are adapted in
+      PTSBetaEta/Normalization.
+    license: "Apache-2.0"
+    author_endorsement: "not-contacted"
+  - title: "Logics and Type Systems"
+    authors:
+      - "Jan Herman Geuvers"
+    type: other
+    id: "PhD thesis, Katholieke Universiteit Nijmegen, 1993"
+    location: "https://www.cs.ru.nl/~herman/PUBS/Proefschrift.pdf"
+    relationship: background
+    note: >-
+      Defines the systems PTS_β, PTS_βη and PTS^s_βη (Definition 4.2.3) and
+      states the conjecture that weak normalization implies strong
+      normalization for all pure type systems (Conjecture 8.1.2), as well as
+      Conjecture 8.1.3, which is not addressed here.
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/openai/math/tree/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/Computability/TypeSystem"
+    relationship: builds-on
+    note: >-
+      OpenAI's Lean formalization of the β case. Its 33 files are copied into
+      PTSBetaEta/Beta and ported to the Lean module system and Lean/Mathlib
+      v4.35.0. Several of them are adapted in PTSBetaEta/Normalization.
+
+status:
+  scope: >-
+    Proved for every PTS specification: weak βη-normalization of PTS_βη
+    implies strong βη-normalization (PureTypeSystem.weak_implies_strong_betaEta),
+    and weak β-normalization of PTS_βη implies strong βη-normalization
+    (PureTypeSystem.weak_beta_implies_strong_betaEta). Not treated: the system
+    PTS^s_βη with a strengthening rule, and Geuvers's Conjecture 8.1.3.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: agent
+      models: ["claude-opus-5-5"]
+      framework: "Claude Code"
+      tool_setup: >-
+        Claude Opus 5.5 (Anthropic) in Claude Code, with shell, Lean/Lake and
+        file-editing tools, under the direction of the human authors. It
+        adapted the proof to βη and wrote all the Lean code except OpenAI's
+        33 files in PTSBetaEta/Beta. It also ported those files to the Lean
+        module system.
+
+fidelity:
+  divergences: >-
+    Terms use de Bruijn indices, and contexts are lists with the newest
+    declaration first. "x not free in F" in the η-rule is expressed by
+    requiring the function part to be a shift of F. Strong normalization is
+    accessibility of the converse of one-step reduction. Otherwise the
+    definitions follow Geuvers's PTS_βη.
+
+review:
+  status: "TEMPLATE: for example self-assessed, or unchecked if no human checked the work"
+
+alignment:
+  namespace: "PureTypeSystem"
+  statements:
+    - source: "README, Theorem, part 1"
+      lean: "PureTypeSystem.weak_implies_strong_betaEta"
+      module: "Solution"
+      status: proved
+    - source: "README, Theorem, part 2"
+      lean: "PureTypeSystem.weak_beta_implies_strong_betaEta"
+      module: "Solution"
+      status: proved
+
+acknowledgements: >-
+  OpenAI's Lean formalization of the β case is included and reused. Built with Lean 4 and Mathlib.
