@@ -80,9 +80,12 @@ status:
     and weak β-normalization of PTS_βη implies strong βη-normalization
     (PureTypeSystem.weak_beta_implies_strong_betaEta). Not treated: the system
     PTS^s_βη with a strengthening rule, and Geuvers's Conjecture 8.1.3.
+    The main theorems depend only on Lean's three standard axioms, propext,
+    Classical.choice and Quot.sound, and the development declares no custom axiom.
   sorry_count: 0
   sorry_in_definitions: 0
-  axioms: []
+  # The standard axioms used by the main theorems. No custom axiom is declared.
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 automation:
   methods:
@@ -105,7 +108,13 @@ fidelity:
     definitions follow Geuvers's PTS_βη.
 
 review:
-  status: "TEMPLATE: for example self-assessed, or unchecked if no human checked the work"
+  status: "self-assessed"
+  notes: >-
+    Before submission, a human author read Challenge.lean, the statement of
+    record, against the README and against Geuvers's definition of PTS_βη.
+    No one outside the author team has reviewed the statement or the proof,
+    and no human has checked the Lean proof line by line. The correctness of
+    the proof rests on the mechanical checks.
 
 alignment:
   namespace: "PureTypeSystem"

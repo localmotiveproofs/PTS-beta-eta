@@ -99,7 +99,9 @@ lake build              # builds the library, Challenge, Solution, CheckAxioms
 The proof development contains no `sorry` and no custom axiom.
 
 On Linux with `bwrap` installed, `lake comparator --config comparator.json` compares `Challenge.lean` with `Solution.lean` and replays the proof through the Lean kernel.
-Palomar runs the same check, and also the NanoDa and con-ron kernels that come with the toolchain.
+Palomar runs the same check with the NanoDa kernel of the toolchain enabled.
+It then replays the proof with the con-ron kernel, which does not come from the submitted toolchain.
+Palomar pins con-ron separately to an official Lean release, `v4.36.0-rc1` for the toolchain `v4.35.0`, and records that release in its mechanical report.
 
 ## Licence and provenance
 
