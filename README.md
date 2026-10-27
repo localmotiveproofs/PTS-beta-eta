@@ -29,6 +29,13 @@ Strong β-normalization then implies strong βη-normalization, again by postpon
 
 We prove neither the result for the system `PTS^s_βη`, which adds a strengthening rule, nor Geuvers's Conjecture 8.1.3, which says that strong normalization of `PTS_β` implies strong normalization of `PTS_βη`.
 
+## Visual guide
+
+We provide a visual guide ([`guide/proof-map.pdf`](guide/proof-map.pdf)) to OpenAI's proof of the β case and to the βη case proved here.
+The guide presents both proofs as one recursion over the strongly connected components of a finite signed graph on sets of sorts, illustrates each construction on a small example, and names the Lean files and declarations behind each figure.
+We believe that a visual guide is more useful initially while auditing a large proof over pages of theorems that need weeks or months of concentrated effort. 
+The LaTeX source files can be found in [`guide/proof-map.tex`](guide/proof-map.tex).
+
 ## Statement of record
 
 [`Challenge.lean`](Challenge.lean) imports only Mathlib and defines everything
@@ -69,6 +76,7 @@ The main changes:
 | `PTSBetaEta/Eta/` | η-reduction, η-postponement, domain erasure and confluence, typing with βη-conversion and its metatheory, strengthening for `PTS_β`, the paradox half for βη |
 | `PTSBetaEta/Normalization/` | OpenAI's candidate models adapted to βη-conversion typing: keys, context tower, the three component interpretations, η-canonical observation values |
 | `PTSBetaEta/Main.lean` | finite restriction, the case split, and the main theorems |
+| `guide/` | visual guide to the proof, as PDF and LaTeX source |
 
 About 48,000 lines of Lean, of which about 30,000 are OpenAI's files.
 
